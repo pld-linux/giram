@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Tue May 11 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.0.16-1]
-- now package is FHS 2.0 compliant (dok moved to /usr/share/doc and plugins
+- now package is FHS 2.0 compliant (dok moved to %{_defaultdocdir} and plugins
   to /usr/X11R6/lib/Giram/,
 - recompiled on new rpm.
 
