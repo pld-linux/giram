@@ -1,3 +1,4 @@
+%define mver 0.1
 Summary:	Giram Is Really A Modeller
 Summary(pl):	Giram - modeler 3D
 Name:		giram
@@ -62,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
+%doc {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 %attr(755,root,root) %{_bindir}/*
 
 %dir %{_libdir}/%{name}
@@ -72,5 +73,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Graphics/%{name}.desktop
 
 %{_sysconfdir}/%{name}
-%{_datadir}/%{name}
 %{_mandir}/man1/*
+
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/%{mver}
+
+%{_datadir}/%{name}/%{mver}/*.ppm
+%attr(755,root,root) %{_datadir}/%{name}/%{mver}/user_install
+
+%dir %{_datadir}/%{name}/%{mver}/modules
+%attr(755,root,root) %{_datadir}/%{name}/%{mver}/modules/*.so
+%attr(755,root,root) %{_datadir}/%{name}/%{mver}/modules/*.la
+
+%{_datadir}/%{name}/%{mver}/color
+%{_datadir}/%{name}/%{mver}/color_map
+%{_datadir}/%{name}/%{mver}/finish
+%{_datadir}/%{name}/%{mver}/normal
+%{_datadir}/%{name}/%{mver}/pigment
+%{_datadir}/%{name}/%{mver}/shape
+%{_datadir}/%{name}/%{mver}/texture
+%{_datadir}/%{name}/%{mver}/tips
