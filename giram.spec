@@ -36,7 +36,7 @@ szybko siê rozwinie.
 gettextize --copy --force
 aclocal
 autoconf
-CXXFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} -fno-rtti -fno-exceptions -fno-implicit-templates"
+CXXFLAGS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions -fno-implicit-templates"
 export CXXFLAGS
 %configure \
 	--without-included-gettext
