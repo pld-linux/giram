@@ -26,7 +26,7 @@ grow rather quickly.
 %build
 gettextize --copy --force
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure \
+./configure %{_target} \
 	--prefix=/usr/X11R6 \
 	--without-included-gettext
 make
