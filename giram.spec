@@ -1,7 +1,7 @@
 Summary:	Giram Is Really A Modeller
 Summary(pl):	Giram - modeler 3D
-Name:		Giram
-Version:	0.1.10
+Name:		giram
+Version:	0.1.11
 Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
@@ -9,7 +9,6 @@ Group(de):	X11/Applikationen/Grafik
 Group(pl):	X11/Aplikacje/Grafika
 Source0:	ftp://ftp.giram.org/pub/giram-%{version}.tar.bz2
 Source1:	%{name}.desktop
-Patch0:		%{name}-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
 Requires:	OpenGL
 BuildRequires:	autoconf
@@ -34,15 +33,14 @@ szybko siê rozwinie.
 
 %prep
 %setup -q
-%patch -p1
 
 %build
 gettextize --copy --force
-aclocal
-autoconf
-automake -a -c
+#aclocal
+#autoconf
+#automake -a -c
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
-%configure \
+%configure2_13 \
 	--without-included-gettext
 
 %{__make}
@@ -66,7 +64,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 %attr(755,root,root) %{_bindir}/*
-%{_applnkdir}/Graphics/Giram.desktop
-%dir %{_libexecdir}/giram
-%dir %{_libexecdir}/giram/plug-ins
+
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plug-ins
 %attr(755,root,root) %{_libexecdir}/giram/plug-ins/*
+
+%{_applnkdir}/Graphics/%{name}.desktop
+
+%{_sysconfdir}/%{name}
+%{_datadir}/%{name}
+%{_mandir}/man1/*
