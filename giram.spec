@@ -7,6 +7,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
+# Source0-md5:	dab001b95c602514b2ef8f130373c9c3
 Source1:	%{name}.desktop
 Patch0:		%{name}-3ds_acinclude.m4.patch
 URL:		http://www.minet.net/giram/
