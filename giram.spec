@@ -1,7 +1,7 @@
 Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
-Version:	0.0.12
+Version:	0.0.14
 Release:	1
 Copyright:	GPL
 Group:		X11/Applications/Graphics
@@ -44,10 +44,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 %attr(755,root,root) /usr/X11R6/bin/*
+%dir /usr/X11R6/Giram
+%dir /usr/X11R6/Giram/plug-ins
+%attr(755,root,root) /usr/X11R6/Giram/plug-ins/*
 
 %lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
 
 %changelog
+* Tue Apr 13 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [0.0.14-1]
+- added Giram plug-ins to %files.
+
 * Mon Jan 04 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.0.9-1]
 - first release in rpm package.
