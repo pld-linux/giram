@@ -11,7 +11,7 @@ URL:		http://www.minet.net/giram/
 BuildRequires:	gtk+-devel >= 1.1.7
 BuildRequires:	glib-devel
 BuildRequires:	Mesa-devel
-BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %define _prefix /usr/X11R6
