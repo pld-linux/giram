@@ -10,7 +10,6 @@ Source:		ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
 Patch:		Giram-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
 BuildRequires:	gtk+-devel >= 1.1.7
-BuildRequires:	glib-devel
 BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gettext-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
