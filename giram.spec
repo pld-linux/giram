@@ -10,6 +10,7 @@ Group(de):	X11/Applikationen/Grafik
 Group(pl):	X11/Aplikacje/Grafika
 Source0:	ftp://ftp.giram.org/pub/giram-%{version}.tar.bz2
 Source1:	%{name}.desktop
+Patch0:		%{name}-3ds_acinclude.m4.patch
 URL:		http://www.minet.net/giram/
 Requires:	OpenGL
 BuildRequires:	autoconf
@@ -18,9 +19,12 @@ BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-libs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	Giram
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
+%define		_sysconfdir	/etc/X11
 
 %description
 Giram is going to be a modeller, mostly designed for the Persistence
@@ -34,14 +38,15 @@ szybko siê rozwinie.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 gettextize --copy --force
-#aclocal
-#autoconf
-#automake -a -c
+aclocal
+autoconf
+automake -a -c
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
-%configure2_13 \
+%configure \
 	--without-included-gettext
 
 %{__make}
