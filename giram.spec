@@ -6,8 +6,8 @@ Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
-Source:		ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
-Patch:		Giram-Mesa-3.1.patch
+Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
+Patch0:		Giram-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
 BuildRequires:	gtk+-devel >= 1.1.7
 BuildRequires:	Mesa-devel >= 3.1
@@ -17,13 +17,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix		/usr/X11R6
 
 %description
-Giram is going to be a modeller, mostly designed for the Persistence Of
-Vision Ray-Tracer. For now, it isn't really powerful.  But I hope it will
-grow rather quickly.
+Giram is going to be a modeller, mostly designed for the Persistence
+Of Vision Ray-Tracer. For now, it isn't really powerful. But I hope it
+will grow rather quickly.
 
 %description -l pl
-Giram bêdzie narzêdziem do modelowania zbudowanym g³ównie do pracy z POV-Ray'em.
-Na razie nie jest naprawdê potê¿ny, ale ma nadziejê, ¿e szybko siê rozwinie.
+Giram bêdzie narzêdziem do modelowania zbudowanym g³ównie do pracy z
+POV-Ray'em. Na razie nie jest naprawdê potê¿ny, ale ma nadziejê, ¿e
+szybko siê rozwinie.
 
 %prep
 %setup -q
