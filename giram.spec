@@ -39,7 +39,7 @@ szybko siê rozwinie.
 %patch0 -p1
 
 %build
-gettextize --copy --force
+%{__gettextize}
 aclocal
 %{__autoconf}
 %{__automake}
