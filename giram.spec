@@ -1,5 +1,5 @@
 Summary:	Giram Is Really A Modeller
-Summary:	Giram - modeler 3D
+Summary(pl):	Giram - modeler 3D
 Name:		Giram
 Version:	0.1.7
 Release:	3
@@ -41,7 +41,7 @@ gettextize --copy --force
 aclocal
 autoconf
 automake -a -c
-CXXFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates}"
+CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure \
 	--without-included-gettext
 
