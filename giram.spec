@@ -22,6 +22,10 @@ Giram is going to be a modeller, mostly designed for the Persistence Of
 Vision Ray-Tracer. For now, it isn't really powerful.  But I hope it will
 grow rather quickly.
 
+%description -l pl
+Giram bêdzie narzêdziem do modelowania zbudowanym g³ównie do pracy z POV-Ray'em.
+Na razie nie jest naprawdê potê¿ny, ale ma nadziejê, ¿e szybko siê rozwinie.
+
 %prep
 %setup -q
 %patch -p1
