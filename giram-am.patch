@@ -1,0 +1,95 @@
+--- giram-0.3.5/giramlib/Makefile.am.orig	2002-03-15 23:35:00.000000000 +0100
++++ giram-0.3.5/giramlib/Makefile.am	2004-03-29 00:17:15.806613680 +0200
+@@ -2,7 +2,7 @@
+ 
+ noinst_LIBRARIES = libgiram.a
+ 
+-libgiram_a_SOURCES = @STRIP_BEGIN@ \
++libgiram_a_SOURCES = \
+ 	constplugins.h    \
+ 	giramlib.h        \
+ 	giramlibprivate.h \
+@@ -11,19 +11,16 @@
+ 	giramobject.c     \
+ 	giramobject.h     \
+ 	vectors.c         \
+-	vectors.h         \
+-@STRIP_END@
++	vectors.h
+ 
+-AM_CPPFLAGS = @STRIP_BEGIN@ \
+-	-DG_LOG_DOMAIN=\"Giramlib\"     \
+-@STRIP_END@
++AM_CPPFLAGS = \
++	-DG_LOG_DOMAIN=\"Giramlib\"
+ 
+-INCLUDES = @STRIP_BEGIN@       \
++INCLUDES = \
+ 	-I$(top_builddir)      \
+ 	-I$(top_srcdir)        \
+ 	-I$(top_builddir)/src  \
+ 	-I$(top_srcdir)/src    \
+ 	$(GTK_CFLAGS)          \
+-	-I$(includedir)        \
+-@STRIP_END@
++	-I$(includedir)
+ 
+--- giram-0.3.5/modules/Makefile.am.orig	2002-04-21 00:21:08.000000000 +0200
++++ giram-0.3.5/modules/Makefile.am	2004-03-29 00:17:53.013957304 +0200
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to produce Makefile.in
+ 
+-libexecdir = $(giramdatadir)/modules
++modulesdir = $(giramplugindir)/modules
+ 
+ CPPFLAGS = \
+         -DMODULE_COMPILATION
+@@ -11,7 +11,7 @@
+         $(GTK_CFLAGS)           \
+         -I$(includedir)
+ 
+-libexec_LTLIBRARIES = \
++modules_LTLIBRARIES = \
+ 	librender_wireframe.la   \
+ 	librender_hiddenfaces.la \
+ 	librender_flat.la        \
+--- giram-0.3.5/src/Makefile.am.orig	2002-12-28 21:38:04.000000000 +0100
++++ giram-0.3.5/src/Makefile.am	2004-03-29 00:16:47.006991888 +0200
+@@ -122,6 +122,5 @@
+   filetypes/s3d/libs3d.a        \
+   primitives/libgiramprimitives.a \
+   $(GTK_LIBS) 
+-#  loaders/libloaders.a            \
+ 
+ giram_LDFLAGS = -export-dynamic
+--- giram-0.3.5/giramrc.in.orig	2001-08-16 22:14:57.000000000 +0200
++++ giram-0.3.5/giramrc.in	2004-03-29 00:24:31.993303224 +0200
+@@ -28,7 +28,7 @@
+ (pigment-path "${giram_dir}/pigment:${giram_data_dir}/pigment")
+ (shape-path "${giram_dir}/shape:${giram_data_dir}/shape")
+ (texture-path "${giram_dir}/texture:${giram_data_dir}/texture")
+-(renderer-modules-path "${giram_dir}/modules:${giram_data_dir}/modules")
++(renderer-modules-path "${giram_dir}/modules:@giramplugindir@/modules")
+ 
+ # Help browser
+ #  Determines which program to use as browser for the GIRAM help pages.
+--- giram-0.3.5/configure.in.orig	2004-03-29 00:33:09.000000000 +0200
++++ giram-0.3.5/configure.in	2004-03-29 00:38:56.201923544 +0200
+@@ -89,7 +89,7 @@
+   fi
+ fi)
+ 
+-CFLAGS="-g -Wall -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED $CFLAGS"
++CFLAGS="-Wall -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED $CFLAGS"
+ 
+ if test -n "$DEBUGFLAG"; then
+   CFLAGS="$DEBUGFLAG $CFLAGS"
+@@ -155,7 +155,7 @@
+ dnl   fi
+ dnl fi
+ 
+-AC_CHECK_HEADERS(math.h ieeefp.h)
++AC_CHECK_HEADERS(math.h ieeefp.h sys/param.h)
+ 
+ 
+ 
