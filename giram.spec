@@ -1,8 +1,8 @@
 Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
-Version:	0.0.14
-Release:	2
+Version:	0.0.15
+Release:	1
 Copyright:	GPL
 Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
