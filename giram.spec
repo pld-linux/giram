@@ -1,13 +1,13 @@
 Summary:	Giram Is Really A Modeller
 Summary(pl):	Giram - modeler 3D
 Name:		Giram
-Version:	0.1.7
-Release:	3
+Version:	0.1.10
+Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
 Group(de):	X11/Applikationen/Grafik
 Group(pl):	X11/Aplikacje/Grafika
-Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.giram.org/pub/giram-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
