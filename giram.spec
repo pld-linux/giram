@@ -53,6 +53,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /usr/X11R6/Giram/plug-ins/*
 
 %changelog
+* Sun Apr 25 1999 Artur Frysiak <wiget@pld.org.pl>
+  [0.0.14-2]
+- added BuildPrereq  rules,
+- recompiled on new rpm.
+
 * Tue Apr 13 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.0.14-1]
 - added Giram plug-ins to %files.
