@@ -1,7 +1,7 @@
 Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
-Version:	0.0.15
+Version:	0.0.16
 Release:	1
 Copyright:	GPL
 Group:		X11/Applications/Graphics
@@ -25,16 +25,26 @@ grow rather quickly.
 
 %build
 gettextize --copy --force
-CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure %{_target} \
+mkdir aclocal
+cp /usr/share/aclocal/{gettext,lcmessage,progtest}.m4 aclocal
+autoconf
+CFLAGS="$RPM_OPT_FLAGS \
+	-DHELPFILE=%{_defaultdocdir}/Giram-%{version}/Tutorial \
+	-DPLUGINS_DIR=/usr/X11R6/lib/Giram/" \
+	LDFLAGS="-s" \
+CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
+./configure \
 	--prefix=/usr/X11R6 \
 	--without-included-gettext
-make
+make	plugindir=/usr/X11R6/lib/Giram
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make DESTDIR=$RPM_BUILD_ROOT install
+make install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	docsdir=%{_defaultdocdir}/Giram-%{version} \
+	plugindir=/usr/X11R6/lib/Giram
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
@@ -43,15 +53,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
-%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
+%doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 
 %attr(755,root,root) /usr/X11R6/bin/*
-%dir /usr/X11R6/Giram
-%dir /usr/X11R6/Giram/plug-ins
-%attr(755,root,root) /usr/X11R6/Giram/plug-ins/*
+%dir /usr/X11R6/lib/Giram
+%attr(755,root,root) /usr/X11R6/lib/Giram/*
+
+#%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
 
 %changelog
+* Tue May 11 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [0.0.16-1]
+- now package is FHS 2.0 compiliat (dok moved to /usr/share/doc and plugins
+  to /usr/X11R6/lib/Giram/,
+- recompiled on new rpm.
+
 * Sun Apr 25 1999 Artur Frysiak <wiget@pld.org.pl>
   [0.0.14-2]
 - added BuildPrereq  rules,
