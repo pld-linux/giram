@@ -6,8 +6,6 @@ Version:	0.1.11
 Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
-Group(de):	X11/Applikationen/Grafik
-Group(pl):	X11/Aplikacje/Grafika
 Source0:	ftp://ftp.giram.org/pub/giram-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-3ds_acinclude.m4.patch
