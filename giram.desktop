@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Giram
 Comment=Giram Is Really A Modeller
-Comment[pl]=Giram - modeler 3D
+Comment[pl]=Giram - program do modelowania 3D
 Exec=giram
 Terminal=0
 Type=Application
