@@ -39,8 +39,9 @@ szybko siê rozwinie.
 %patch0 -p1
 
 %build
+rm -f missing
 %{__gettextize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
@@ -57,8 +58,6 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Graphics
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Graphics
 
-gzip -9nf AUTHORS ChangeLog NEWS README TODO
-
 %find_lang %{name}
 
 %clean
@@ -66,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
+%doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/*
 
 %dir %{_libdir}/%{name}
