@@ -8,10 +8,10 @@ Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
 Source:		ftp://ftp.minet.net/pub/giram/%{name}-%{version}.tar.bz2
 URL:		http://www.minet.net/giram/
-BuildPrereq:	gtk+-devel >= 1.1.7
-BuildPrereq:	glib-devel
-BuildPrereq:	Mesa-devel
-BuildPrereq:	gettext
+BuildRequires:	gtk+-devel >= 1.1.7
+BuildRequires:	glib-devel
+BuildRequires:	Mesa-devel
+BuildRequires:	gettext
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %define _prefix /usr/X11R6
