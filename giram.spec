@@ -13,7 +13,7 @@ BuildRequires:	gtk+-devel >= 1.1.7
 BuildRequires:	glib-devel
 BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gettext-devel
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 
