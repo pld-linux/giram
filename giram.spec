@@ -2,15 +2,15 @@ Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
 Version:	0.1.4
-Release:	1
-Copyright:	GPL
+Release:	2
+License:	GPL
 Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
 Source:		ftp://ftp.minet.net/pub/giram/%{name}-%{version}.tar.bz2
 URL:		http://www.minet.net/giram/
 BuildRequires:	gtk+-devel >= 1.1.7
 BuildRequires:	glib-devel
-BuildRequires:	Mesa-devel
+BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gettext-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
