@@ -11,6 +11,7 @@ Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
+Requires:	OpenGL
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	OpenGL-devel >= 3.1
@@ -18,6 +19,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	gnome-libs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix		/usr/X11R6
 
 %description
