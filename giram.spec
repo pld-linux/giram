@@ -2,7 +2,7 @@ Summary:	Giram Is Really A Modeller
 Summary(pl):	Giram - modeler 3D
 Name:		giram
 Version:	0.3.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Graphics
 #Source0Download: http://www.giram.org/index.php?p_menu=download
@@ -12,6 +12,7 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-am.patch
 Patch1:		%{name}-locale-names.patch
 Patch2:		%{name}-gtk.patch
+Patch3:		%{name}-po.patch
 URL:		http://www.giram.org/
 BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	autoconf
@@ -40,6 +41,7 @@ szybko siê rozwinie.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 mv -f po/{no,nb}.po
 
@@ -68,6 +70,8 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/%{mver}/modules/*.la
 
+# Greek translation is bogus here
+rm -fr $RPM_BUILD_ROOT%{_datadir}/locale/el
 %find_lang %{name}
 
 %clean
