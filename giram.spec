@@ -2,15 +2,16 @@ Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
 Version:	0.1.7
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Graphics
+Group(de):	X11/Applikationen/Grafik
 Group(pl):	X11/Aplikacje/Grafika
 Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
-BuildRequires:	gtk+-devel >= 1.1.7
+BuildRequires:	gnome-libs-devel
 BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	gettext-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -35,10 +36,8 @@ szybko siê rozwinie.
 gettextize --copy --force
 aclocal
 autoconf
-LDFLAGS="-s"
-CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates"
-CXXFLAGS="$RPM_OPT_FLAGS"
-export LDFLAGS CXXFLAGS
+CXXFLAGS="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O -g} -fno-rtti -fno-exceptions -fno-implicit-templates"
+export CXXFLAGS
 %configure \
 	--without-included-gettext
 
