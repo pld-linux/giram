@@ -1,27 +1,29 @@
-%define mver 0.1
 Summary:	Giram Is Really A Modeller
 Summary(pl):	Giram - modeler 3D
 Name:		giram
-Version:	0.1.11
+Version:	0.3.5
 Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
-Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	dab001b95c602514b2ef8f130373c9c3
+#Source0Download: http://www.giram.org/index.php?p_menu=download
+Source0:	http://www.giram.org/downloads/%{name}-%{version}.tar.gz
+# Source0-md5:	1197134bd838669f202fc2f2f1b5da9b
 Source1:	%{name}.desktop
-Patch0:		%{name}-3ds_acinclude.m4.patch
-URL:		http://www.minet.net/giram/
-Requires:	OpenGL
+Patch0:		%{name}-am.patch
+Patch1:		%{name}-locale-names.patch
+Patch2:		%{name}-gtk.patch
+URL:		http://www.giram.org/
+BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	gettext-devel
-BuildRequires:	gnome-libs-devel
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRequires:	gtk+2-devel >= 2:2.4.0
+BuildRequires:	lib3ds-devel >= 1.0.0
+Requires:	OpenGL
 Obsoletes:	Giram
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
-%define		_sysconfdir	/etc/X11
+%define		mver		0.3
 
 %description
 Giram is going to be a modeller, mostly designed for the Persistence
@@ -30,32 +32,41 @@ will grow rather quickly.
 
 %description -l pl
 Giram bêdzie narzêdziem do modelowania zbudowanym g³ównie do pracy z
-POV-Ray'em. Na razie nie jest naprawdê potê¿ny, ale ma nadziejê, ¿e
+POV-Rayem. Na razie nie jest naprawdê potê¿ny, ale ma nadziejê, ¿e
 szybko siê rozwinie.
 
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+
+mv -f po/{no,nb}.po
 
 %build
-rm -f missing
-%{__gettextize}
+glib-gettextize --copy --force
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
-CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure \
-	--without-included-gettext
+	POVRAY="/usr/bin/povray" \
+	--disable-static \
+	--enable-bishop-s3d
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Graphics
+install -d $RPM_BUILD_ROOT%{_desktopdir}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Graphics
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/%{mver}/modules/*.la
 
 %find_lang %{name}
 
@@ -64,28 +75,25 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS BUGS ChangeLog IDEAS NEWS README TODO docs/Tutorial
+%lang(fr) %doc docs/Tutorial.fr
 %attr(755,root,root) %{_bindir}/*
-
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plug-ins
 %attr(755,root,root) %{_libexecdir}/giram/plug-ins/*
+%dir %{_libdir}/%{name}/%{mver}
+%dir %{_libdir}/%{name}/%{mver}/modules
+%attr(755,root,root) %{_libdir}/%{name}/%{mver}/modules/*.so
 
-%{_applnkdir}/Graphics/%{name}.desktop
+%{_desktopdir}/%{name}.desktop
 
 %{_sysconfdir}/%{name}
 %{_mandir}/man1/*
 
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/%{mver}
-
 %{_datadir}/%{name}/%{mver}/*.ppm
 %attr(755,root,root) %{_datadir}/%{name}/%{mver}/user_install
-
-%dir %{_datadir}/%{name}/%{mver}/modules
-%attr(755,root,root) %{_datadir}/%{name}/%{mver}/modules/*.so
-%{_datadir}/%{name}/%{mver}/modules/*.la
-
 %{_datadir}/%{name}/%{mver}/color
 %{_datadir}/%{name}/%{mver}/color_map
 %{_datadir}/%{name}/%{mver}/finish
