@@ -12,8 +12,7 @@ URL:		http://www.minet.net/giram/
 BuildPrereq:	gtk+-devel >= 1.1.7
 BuildPrereq:	glib-devel
 BuildPrereq:	Mesa-devel
-%requires_pkg	gtk+
-%requires_pkg	glib
+BuildPrereq:	gettext
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -46,12 +45,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
+%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
+
 %attr(755,root,root) /usr/X11R6/bin/*
 %dir /usr/X11R6/Giram
 %dir /usr/X11R6/Giram/plug-ins
 %attr(755,root,root) /usr/X11R6/Giram/plug-ins/*
-
-%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
 
 %changelog
 * Tue Apr 13 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
