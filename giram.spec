@@ -28,7 +28,7 @@ grow rather quickly.
 %build
 gettextize --copy --force
 mkdir aclocal
-cp %{_datadir}/aclocal/{gettext,lcmessage,progtest}.m4 aclocal
+cp /usr/share/aclocal/{gettext,lcmessage,progtest}.m4 aclocal
 autoconf
 CFLAGS="$RPM_OPT_FLAGS \
 	-DHELPFILE=%{_defaultdocdir}/Giram-%{version}/Tutorial \
