@@ -41,8 +41,8 @@ szybko siê rozwinie.
 %build
 gettextize --copy --force
 aclocal
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 CXXFLAGS="%{rpmcflags} -fno-rtti -fno-exceptions -fno-implicit-templates"
 %configure \
 	--without-included-gettext
