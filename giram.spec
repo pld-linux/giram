@@ -11,6 +11,8 @@ Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Patch0:		%{name}-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	gettext-devel
 BuildRequires:	gnome-libs-devel
@@ -36,6 +38,7 @@ szybko siê rozwinie.
 gettextize --copy --force
 aclocal
 autoconf
+automake -a -c
 CXXFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates}"
 %configure \
 	--without-included-gettext
