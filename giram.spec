@@ -7,6 +7,7 @@ License:	GPL
 Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
 Source:		ftp://ftp.minet.net/pub/giram/%{name}-%{version}.tar.bz2
+Patch:		Giram-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
 BuildRequires:	gtk+-devel >= 1.1.7
 BuildRequires:	glib-devel
@@ -23,6 +24,7 @@ grow rather quickly.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 gettextize --copy --force
