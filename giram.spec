@@ -7,7 +7,6 @@ Copyright:	GPL
 Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
 Source:		ftp://ftp.minet.net/pub/giram/%{name}-%{version}.tar.bz2
-Patch:		Giram-DESTDIR.patch
 URL:		http://www.minet.net/giram/
 BuildPrereq:	gtk+-devel >= 1.1.7
 BuildPrereq:	glib-devel
@@ -23,9 +22,9 @@ grow rather quickly.
 
 %prep
 %setup -q
-%patch -p1
 
 %build
+gettextize --copy --force
 CFLAGS="$RPM_OPT_FLAGS" CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 ./configure \
 	--prefix=/usr/X11R6 \
