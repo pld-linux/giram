@@ -21,7 +21,6 @@ Giram is going to be a modeller, mostly designed for the Persistence Of
 Vision Ray-Tracer. For now, it isn't really powerful.  But I hope it will
 grow rather quickly.
 
-
 %prep
 %setup -q
 
@@ -50,12 +49,12 @@ make install \
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
-%find_lang Giram
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f Giram.lang
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 
