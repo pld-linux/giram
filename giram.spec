@@ -46,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 make install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	docsdir=%{_defaultdocdir}/Giram-%{version} \
-	plugindir%{_libdir}/Giram
+	plugindir=%{_libdir}/Giram
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
