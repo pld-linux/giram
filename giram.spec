@@ -9,8 +9,8 @@ Group(pl):	X11/Aplikacje/Grafika
 Source:		ftp://ftp.minet.net/pub/giram/%{name}-%{version}.tar.bz2
 Patch:		Giram-DESTDIR.patch
 URL:		http://www.minet.net/giram/
-Requires:	gtk+ = 1.2.0
-Requires:	glib = 1.2.0
+Requires:	gtk+ = 1.2.1
+Requires:	glib = 1.2.1
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
