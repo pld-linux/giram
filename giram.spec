@@ -20,6 +20,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2:2.4.0
 BuildRequires:	lib3ds-devel >= 1.0.0
+BuildRequires:	libtool
 Requires:	OpenGL
 Obsoletes:	Giram
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
