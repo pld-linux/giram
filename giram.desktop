@@ -6,4 +6,5 @@ Comment[pl]=Giram - program do modelowania 3D
 Exec=giram
 Terminal=false
 Type=Application
+Categories=Graphics;
 # vi: encoding=utf-8
