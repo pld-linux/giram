@@ -14,6 +14,8 @@ BuildPrereq:	Mesa-devel
 BuildPrereq:	gettext
 BuildRoot:	/tmp/%{name}-%{version}-root
 
+%define _prefix /usr/X11R6
+
 %description
 Giram is going to be a modeller, mostly designed for the Persistence Of
 Vision Ray-Tracer. For now, it isn't really powerful.  But I hope it will
@@ -30,13 +32,13 @@ cp %{_datadir}/aclocal/{gettext,lcmessage,progtest}.m4 aclocal
 autoconf
 CFLAGS="$RPM_OPT_FLAGS \
 	-DHELPFILE=%{_defaultdocdir}/Giram-%{version}/Tutorial \
-	-DPLUGINS_DIR=/usr/X11R6/lib/Giram/" \
+	-DPLUGINS_DIR=%{_datadir}/Giram/" \
 	LDFLAGS="-s" \
 CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
 ./configure \
-	--prefix=/usr/X11R6 \
+	--prefix=%{_prefix} \
 	--without-included-gettext
-make	plugindir=/usr/X11R6/lib/Giram
+make	plugindir=%{_libdir}/Giram
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -44,22 +46,22 @@ rm -rf $RPM_BUILD_ROOT
 make install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	docsdir=%{_defaultdocdir}/Giram-%{version} \
-	plugindir=/usr/X11R6/lib/Giram
+	plugindir%{_libdir}/Giram
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
+
+%find_lang Giram
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f Giram.lang
 %defattr(644,root,root,755)
 %doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 
-%attr(755,root,root) /usr/X11R6/bin/*
-%dir /usr/X11R6/lib/Giram
-%attr(755,root,root) /usr/X11R6/lib/Giram/*
-
-#%lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
+%attr(755,root,root) %{_bindir}/*
+%dir %{_libdir}/Giram
+%attr(755,root,root) %{_libdir}/Giram/*
 
 %changelog
 * Tue May 11 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
