@@ -1,16 +1,17 @@
 Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
-Version:	0.1.5
+Version:	0.1.6
 Release:	1
 License:	GPL
 Group:		X11/Applications/Graphics
 Group(pl):	X11/Aplikacje/Grafika
 Source0:	ftp://ftp.giram.org/pub/%{name}-%{version}.tar.bz2
+Source1:	Giram.desktop
 Patch0:		Giram-Mesa-3.1.patch
 URL:		http://www.minet.net/giram/
 BuildRequires:	gtk+-devel >= 1.1.7
-BuildRequires:	Mesa-devel >= 3.1
+BuildRequires:	OpenGL-devel >= 3.1
 BuildRequires:	gettext-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,8 +46,11 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_applnkdir}/Graphics
 
 make install DESTDIR=$RPM_BUILD_ROOT
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Graphics
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
@@ -58,8 +62,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
-
 %attr(755,root,root) %{_bindir}/*
+%{_applnkdir}/Graphics/Giram.desktop
 %dir %{_libexecdir}/giram
 %dir %{_libexecdir}/giram/plug-ins
 %attr(755,root,root) %{_libexecdir}/giram/plug-ins/*
