@@ -61,23 +61,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/Giram
 %attr(755,root,root) %{_libdir}/Giram/*
-
-%changelog
-* Tue May 11 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.0.16-1]
-- now package is FHS 2.0 compliant (dok moved to %{_defaultdocdir} and plugins
-  to /usr/X11R6/lib/Giram/,
-- recompiled on new rpm.
-
-* Sun Apr 25 1999 Artur Frysiak <wiget@pld.org.pl>
-  [0.0.14-2]
-- added BuildPrereq  rules,
-- recompiled on new rpm.
-
-* Tue Apr 13 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.0.14-1]
-- added Giram plug-ins to %files.
-
-* Mon Jan 04 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.0.9-1]
-- first release in rpm package.
