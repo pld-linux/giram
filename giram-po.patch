@@ -1,0 +1,90 @@
+diff -ur giram-0.3.5/po.orig/ca.po giram-0.3.5/po/ca.po
+--- giram-0.3.5/po.orig/ca.po	Sat Mar  8 13:44:44 2003
++++ giram-0.3.5/po/ca.po	Tue Aug  3 08:46:15 2004
+@@ -14,7 +14,7 @@
+ "Last-Translator: DindinX <David@dindinx.org>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=CHARSET\n"
++"Content-Type: text/plain; charset=iso-8859-1\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/about_dialog.c:91
+diff -ur giram-0.3.5/po.orig/cs.po giram-0.3.5/po/cs.po
+--- giram-0.3.5/po.orig/cs.po	Sat Mar  8 13:44:44 2003
++++ giram-0.3.5/po/cs.po	Tue Aug  3 10:00:49 2004
+@@ -14,7 +14,7 @@
+ "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=CHARSET\n"
++"Content-Type: text/plain; charset=iso-8859-2\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/about_dialog.c:91
+diff -ur giram-0.3.5/po.orig/da.po giram-0.3.5/po/da.po
+--- giram-0.3.5/po.orig/da.po	Sat Mar  8 13:44:44 2003
++++ giram-0.3.5/po/da.po	Tue Aug  3 08:46:06 2004
+@@ -14,7 +14,7 @@
+ "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=CHARSET\n"
++"Content-Type: text/plain; charset=iso-8859-1\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/about_dialog.c:91
+diff -ur giram-0.3.5/po.orig/de.po giram-0.3.5/po/de.po
+--- giram-0.3.5/po.orig/de.po	Sat Mar  8 13:44:45 2003
++++ giram-0.3.5/po/de.po	Tue Aug  3 10:00:21 2004
+@@ -14,7 +14,7 @@
+ "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=CHARSET\n"
++"Content-Type: text/plain; charset=iso-8859-1\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/about_dialog.c:91
+diff -ur giram-0.3.5/po.orig/es.po giram-0.3.5/po/es.po
+--- giram-0.3.5/po.orig/es.po	Sat Mar  8 13:44:45 2003
++++ giram-0.3.5/po/es.po	Tue Aug  3 08:45:44 2004
+@@ -5,7 +5,6 @@
+ #: src/user_install.c:168 src/user_install.c:172 src/user_install.c:176
+ #: src/user_install.c:180 src/user_install.c:184 src/user_install.c:188
+ #: src/user_install.c:192
+-#, fuzzy
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: PACKAGE VERSION\n"
+@@ -15,7 +14,7 @@
+ "Language-Team: \n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=iso8859-1\n"
+-"Content-Transfer-Encoding: iso8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/about_dialog.c:91
+ msgid "About Giram"
+diff -ur giram-0.3.5/po.orig/fr.po giram-0.3.5/po/fr.po
+--- giram-0.3.5/po.orig/fr.po	Sat Mar  8 13:44:46 2003
++++ giram-0.3.5/po/fr.po	Tue Aug  3 08:39:57 2004
+@@ -5,7 +5,6 @@
+ #: src/user_install.c:168 src/user_install.c:172 src/user_install.c:176
+ #: src/user_install.c:180 src/user_install.c:184 src/user_install.c:188
+ #: src/user_install.c:192
+-#, fuzzy
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: 0.0.8\n"
+@@ -14,8 +13,8 @@
+ "Last-Translator: David Odin <David@dindinx.org>\n"
+ "Language-Team: LANGUAGE <LL@li.org>\n"
+ "MIME-Version: 1.0\n"
+-"Content-Type: text/plain; charset=CHARSET\n"
+-"Content-Transfer-Encoding: ENCODING\n"
++"Content-Type: text/plain; charset=iso-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
+ 
+ #: src/about_dialog.c:91
+ msgid "About Giram"
