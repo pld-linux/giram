@@ -4,8 +4,8 @@ Name:		Giram
 Version:	0.0.12
 Release:	1
 Copyright:	GPL
-Group:		X11/Applications/Graphics                                                                     
-Group(pl):	X11/Aplikacje/Grafika                                                                         
+Group:		X11/Applications/Graphics
+Group(pl):	X11/Aplikacje/Grafika
 Source:		ftp://ftp.minet.net/pub/giram/%{name}-%{version}.tar.bz2
 Patch:		Giram-DESTDIR.patch
 URL:		http://www.minet.net/giram/
@@ -35,12 +35,14 @@ rm -rf $RPM_BUILD_ROOT
 
 make DESTDIR=$RPM_BUILD_ROOT install
 
+gzip -9nf AUTHORS ChangeLog NEWS README TODO
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 %attr(755,root,root) /usr/X11R6/bin/*
 
 %lang(fr) /usr/X11R6/share/locale/fr/LC_MESSAGES/giram.mo
