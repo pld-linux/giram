@@ -14,7 +14,7 @@ Patch1:		%{name}-locale-names.patch
 Patch2:		%{name}-gtk.patch
 Patch3:		%{name}-po.patch
 URL:		http://www.giram.org/
-BuildRequires:	OpenGL-devel >= 3.1
+BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
