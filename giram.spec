@@ -85,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_datadir}/%{name}/%{mver}/modules
 %attr(755,root,root) %{_datadir}/%{name}/%{mver}/modules/*.so
-%attr(755,root,root) %{_datadir}/%{name}/%{mver}/modules/*.la
+%{_datadir}/%{name}/%{mver}/modules/*.la
 
 %{_datadir}/%{name}/%{mver}/color
 %{_datadir}/%{name}/%{mver}/color_map
