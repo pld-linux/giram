@@ -1,0 +1,346 @@
+--- giram-0.3.5/src/widgets/Makefile.am.orig	2002-07-11 15:48:08.000000000 +0200
++++ giram-0.3.5/src/widgets/Makefile.am	2004-03-29 00:54:39.502520056 +0200
+@@ -26,8 +26,6 @@
+   giramwidgets.c        \
+   giramwidgets.h        \
+   giramwidgetstypes.h   \
+-  gtkcolorbutton.c      \
+-  gtkcolorbutton.h      \
+   gtkcolormapbutton.c   \
+   gtkcolormapbutton.h   \
+   gtkcolormapeditor.c   \
+--- giram-0.3.5/src/giramobjecteditor.c.orig	2002-07-22 19:32:37.000000000 +0200
++++ giram-0.3.5/src/giramobjecteditor.c	2004-03-29 00:54:14.428331912 +0200
+@@ -22,7 +22,6 @@
+ #include "giram.h"
+ 
+ #include "giramintl.h"
+-#include "widgets/gtkcolorbutton.h"
+ #include "widgets/giramfileselection.h"
+ 
+ #include "widgets/giramvectorframe.h"
+@@ -1078,7 +1078,11 @@
+ static void giram_object_editor_update_background(GtkColorButton *gcb,
+                                                   GiramObjectEditor *goe)
+ {
+-  V3Dcopy(goe->background_color, gcb->color);
++  GdkColor col;
++  gtk_color_button_get_color(gcb, &col);
++  goe->background_color[0] = col.red / 65535.0;
++  goe->background_color[1] = col.green / 65535.0;
++  goe->background_color[2] = col.blue / 65535.0;
+ }
+ 
+ /*************************************************************************
+@@ -1088,7 +1092,7 @@
+ {
+   GtkWidget *page, *hbox, *label, *main_vbox;
+ 
+-  gdouble color[] = { 0.0, 0.0, 0.0, 0.0, 0.0 };
++  GdkColor color = { 0, 0, 0, 0 };
+ 
+   page = gtk_frame_new(NULL);
+   gtk_widget_show(page);
+@@ -1109,8 +1113,7 @@
+   gtk_box_pack_start_defaults(GTK_BOX(hbox), label);
+   gtk_widget_show(label);
+ 
+-  goe->background_color_button = gtk_color_button_new(_("background color"),
+-                                                      30, 20, color);
++  goe->background_color_button = gtk_color_button_new_with_color(&color);
+   gtk_box_pack_start(GTK_BOX(hbox), goe->background_color_button, FALSE, FALSE, 0);
+   gtk_widget_show(goe->background_color_button);
+   g_signal_connect(G_OBJECT(goe->background_color_button), "color_changed",
+@@ -1127,11 +1130,15 @@
+ {
+   GSList      *tmp_list;
+   ViewStruct  *TmpView;
++  GdkColor col;
+ 
+   goe->light->Location[0] = strtod(gtk_entry_get_text(GTK_ENTRY(goe->lightsource_pos_x)), NULL);
+   goe->light->Location[1] = strtod(gtk_entry_get_text(GTK_ENTRY(goe->lightsource_pos_y)), NULL);
+   goe->light->Location[2] = strtod(gtk_entry_get_text(GTK_ENTRY(goe->lightsource_pos_z)), NULL);
+-  V3Dcopy(goe->light->Color, GTK_COLOR_BUTTON(goe->lightsource_color_button)->color);
++  gtk_color_button_get_color(GTK_COLOR_BUTTON(goe->lightsource_color_button), &col);
++  goe->light->Color[0] = col.red / 65535.0;
++  goe->light->Color[1] = col.green / 65535.0;
++  goe->light->Color[2] = col.blue / 65535.0;
+ 
+   for (tmp_list = goe->light->frame->all_views ;
+        tmp_list ;
+@@ -1148,7 +1155,7 @@
+ static GtkWidget *giram_object_editor_create_lightsource_page(GiramObjectEditor *goe)
+ {
+   GtkWidget *page, *hbox, *table, *label, *main_vbox;
+-  gdouble color[] = { 0.0, 0.0, 0.0, 0.0, 0.0 };
++  GdkColor color = { 0, 0, 0, 0 };
+ 
+   page = gtk_frame_new(NULL);
+   gtk_widget_show(page);
+@@ -1217,8 +1224,8 @@
+   gtk_table_attach_defaults(GTK_TABLE(table), label, 0,1, 1,2);
+   gtk_widget_show(label);
+ 
+-  goe->lightsource_color_button = gtk_color_button_new(_("light source color"),
+-                                                       30, 20, color);
++  goe->lightsource_color_button = gtk_color_button_new_with_color(&color);
++  gtk_color_button_set_title(goe->lightsource_color_button, _("light source color"));
+   gtk_table_attach_defaults(GTK_TABLE(table), goe->lightsource_color_button, 1,2, 1,2);
+   gtk_widget_show(goe->lightsource_color_button);
+   g_signal_connect(G_OBJECT(goe->lightsource_color_button), "color_changed",
+@@ -1699,8 +1706,11 @@
+ **************************************************************************/
+ static void giram_object_editor_background_update(GiramObjectEditor *goe)
+ {
+-  gtk_color_button_set_color(GTK_COLOR_BUTTON(goe->background_color_button),
+-                             goe->background_color);
++  GdkColor col;
++  col.red = goe->background_color[0];
++  col.green = goe->background_color[1];
++  col.blue = goe->background_color[2];
++  gtk_color_button_set_color(GTK_COLOR_BUTTON(goe->background_color_button), &col);
+   gtk_notebook_set_current_page(GTK_NOTEBOOK(goe), BACKGROUND_PAGE);
+ }
+ 
+@@ -1710,10 +1720,13 @@
+ static void giram_object_editor_lightsource_update(GiramObjectEditor *goe)
+ {
+   gchar *tmp;
++  GdkColor col;
+ 
+   /* color */
+-  gtk_color_button_set_color(GTK_COLOR_BUTTON(goe->lightsource_color_button),
+-                             goe->light->Color);
++  col.red = goe->light->Color[0];
++  col.green = goe->light->Color[1];
++  col.blue = goe->light->Color[2];
++  gtk_color_button_set_color(GTK_COLOR_BUTTON(goe->lightsource_color_button), &col);
+   /* position */
+   tmp = g_strdup_printf("%g", goe->light->Location[0]);
+   gtk_entry_set_text(GTK_ENTRY(goe->lightsource_pos_x), tmp);
+--- giram-0.3.5/src/texture.c.orig	2002-07-08 21:02:23.000000000 +0200
++++ giram-0.3.5/src/texture.c	2004-03-29 00:54:28.395208624 +0200
+@@ -23,7 +23,6 @@
+ #warning GTK_DISABLE_DEPRECATED
+ #include "giram.h"
+ #include "utils.h"
+-#include "widgets/gtkcolorbutton.h"
+ #include "widgets/gtkcolormapbutton.h"
+ #include "texture.h"
+ 
+@@ -63,11 +63,13 @@
+                                                GtkWidget      *editor)
+ {
+   TextureStruct *texture;
++  GdkColor col;
+ 
+   texture = g_object_get_data(G_OBJECT(editor), "Texture");
+-  texture->Pigment->Color[0] = gcb->color[0];
+-  texture->Pigment->Color[1] = gcb->color[1];
+-  texture->Pigment->Color[2] = gcb->color[2];
++  gtk_color_button_get_color(gcb, &col);
++  texture->Pigment->Color[0] = col.red / 65535.0;
++  texture->Pigment->Color[1] = col.green / 65535.0;
++  texture->Pigment->Color[2] = col.blue / 65535.0;
+ }
+ 
+ /*************************************************************************
+@@ -77,11 +79,13 @@
+                                                 GtkWidget      *editor)
+ {
+   TextureStruct *texture;
++  GdkColor col;
+ 
+   texture = g_object_get_data(G_OBJECT(editor), "Texture");
+-  texture->Pigment->Color2[0] = gcb->color[0];
+-  texture->Pigment->Color2[1] = gcb->color[1];
+-  texture->Pigment->Color2[2] = gcb->color[2];
++  gtk_color_button_get_color(gcb, &col);
++  texture->Pigment->Color2[0] = col.red / 65535.0;
++  texture->Pigment->Color2[1] = col.green / 65535.0;
++  texture->Pigment->Color2[2] = col.blue / 65535.0;
+ }
+ 
+ /*************************************************************************
+@@ -91,11 +95,13 @@
+                                                GtkWidget      *editor)
+ {
+   TextureStruct *texture;
++  GdkColor col;
+ 
+   texture = g_object_get_data(G_OBJECT(editor), "Texture");
+-  texture->Pigment->Color3[0] = gcb->color[0];
+-  texture->Pigment->Color3[1] = gcb->color[1];
+-  texture->Pigment->Color3[2] = gcb->color[2];
++  gtk_color_button_get_color(gcb, &col);
++  texture->Pigment->Color3[0] = col.red / 65535.0;
++  texture->Pigment->Color3[1] = col.green / 65535.0;
++  texture->Pigment->Color3[2] = col.blue / 65535.0;
+ }
+ /*************************************************************************
+ *  texture_editor_color_map_changed
+@@ -113,11 +119,13 @@
+                                            GtkWidget      *editor)
+ {
+   TextureStruct *texture;
++  GdkColor col;
+ 
+   texture = g_object_get_data(G_OBJECT(editor), "Texture");
+-  texture->finish->ambient[0] = gcb->color[0];
+-  texture->finish->ambient[1] = gcb->color[1];
+-  texture->finish->ambient[2] = gcb->color[2];
++  gtk_color_button_get_color(gcb, &col);
++  texture->finish->ambient[0] = col.red / 65535.0;
++  texture->finish->ambient[1] = col.green / 65535.0;
++  texture->finish->ambient[2] = col.blue / 65535.0;
+ }
+ 
+ /*************************************************************************
+@@ -139,11 +147,13 @@
+                                               GtkWidget      *editor)
+ {
+   TextureStruct *texture;
++  GdkColor col;
+ 
+   texture = g_object_get_data(G_OBJECT(editor), "Texture");
+-  texture->finish->reflection[0] = gcb->color[0];
+-  texture->finish->reflection[1] = gcb->color[1];
+-  texture->finish->reflection[2] = gcb->color[2];
++  gtk_color_button_get_color(gcb, &col);
++  texture->finish->reflection[0] = col.red / 65535.0;
++  texture->finish->reflection[1] = col.green / 65535.0;
++  texture->finish->reflection[2] = col.blue / 65535.0;
+ }
+ 
+ /*************************************************************************
+@@ -267,6 +277,7 @@
+   guint           i;
+   GtkWidget      *combo;
+   GtkAdjustment  *adj;
++  GdkColor col;
+ 
+   g_object_set_data(editor, "Texture", texture);
+   /* pigment part */
+@@ -279,19 +290,34 @@
+     }
+ 
+   gcb = g_object_get_data(editor, "First Color");
+-  gtk_color_button_set_color(gcb, texture->Pigment->Color);
++  col.red = texture->Pigment->Color[0] * 65535;
++  col.green = texture->Pigment->Color[1] * 65535;
++  col.blue = texture->Pigment->Color[2] * 65535;
++  gtk_color_button_set_color(gcb, &col);
+   gcb = g_object_get_data(editor, "Second Color");
+-  gtk_color_button_set_color(gcb, texture->Pigment->Color2);
++  col.red = texture->Pigment->Color2[0] * 65535;
++  col.green = texture->Pigment->Color2[1] * 65535;
++  col.blue = texture->Pigment->Color2[2] * 65535;
++  gtk_color_button_set_color(gcb, &col);
+   gcb = g_object_get_data(editor, "Third Color");
+-  gtk_color_button_set_color(gcb, texture->Pigment->Color3);
++  col.red = texture->Pigment->Color3[0] * 65535;
++  col.green = texture->Pigment->Color3[1] * 65535;
++  col.blue = texture->Pigment->Color3[2] * 65535;
++  gtk_color_button_set_color(gcb, &col);
+   
+   /* finish part */
+   gcb = g_object_get_data(editor, "Ambient");
+-  gtk_color_button_set_color(gcb, texture->finish->ambient);
++  col.red = texture->finish->ambient[0] * 65535;
++  col.green = texture->finish->ambient[1] * 65535;
++  col.blue = texture->finish->ambient[2] * 65535;
++  gtk_color_button_set_color(gcb, &col);
+   adj = g_object_get_data(editor, "Diffuse");
+   gtk_adjustment_set_value(adj, texture->finish->diffuse);
+   gcb = g_object_get_data(editor, "Reflection");
+-  gtk_color_button_set_color(gcb, texture->finish->reflection);
++  col.red = texture->finish->reflection[0] * 65535;
++  col.green = texture->finish->reflection[1] * 65535;
++  col.blue = texture->finish->reflection[2] * 65535;
++  gtk_color_button_set_color(gcb, &col);
+   adj = g_object_get_data(editor, "Brilliance");
+   gtk_adjustment_set_value(adj, texture->finish->brilliance);
+   adj = g_object_get_data(editor, "Crand");
+@@ -352,7 +378,8 @@
+   label = gtk_label_new(_("Solid color"));
+   g_object_set_data(G_OBJECT(Dialog), "First Color Label", label);
+   gtk_table_attach_defaults(GTK_TABLE(table), label, 0,1, 0,1);
+-  button = gtk_color_button_new("Pigment Color", 50, 20, NULL);
++  button = gtk_color_button_new();
++  gtk_color_button_set_title(button, "Pigment Color");
+   gtk_table_attach_defaults(GTK_TABLE(table), button, 1,2, 0,1);
+   g_object_set_data(G_OBJECT(Dialog), "First Color", button);
+   g_signal_connect(G_OBJECT(button), "color_changed",
+@@ -362,7 +389,8 @@
+   g_object_set_data(G_OBJECT(Dialog), "Second Color Label", label);
+   gtk_widget_set_sensitive(label, FALSE);
+   gtk_table_attach_defaults(GTK_TABLE(table), label, 0,1, 1,2);
+-  button = gtk_color_button_new("Pigment Color", 50, 20, NULL);
++  button = gtk_color_button_new();
++  gtk_color_button_set_title(button, "Pigment Color");
+   g_object_set_data(G_OBJECT(Dialog), "Second Color", button);
+   gtk_widget_set_sensitive(button, FALSE);
+   gtk_table_attach_defaults(GTK_TABLE(table), button, 1,2, 1,2);
+@@ -373,7 +401,8 @@
+   g_object_set_data(G_OBJECT(Dialog), "Third Color Label", label);
+   gtk_widget_set_sensitive(label, FALSE);
+   gtk_table_attach_defaults(GTK_TABLE(table), label, 0,1, 2,3);
+-  button = gtk_color_button_new("Pigment Color", 50, 20, NULL);
++  button = gtk_color_button_new();
++  gtk_color_button_set_title(button, "Pigment Color");
+   g_object_set_data(G_OBJECT(Dialog), "Third Color", button);
+   gtk_widget_set_sensitive(button, FALSE);
+   gtk_table_attach_defaults(GTK_TABLE(table), button, 1,2, 2,3);
+@@ -399,7 +428,8 @@
+   /* Ambient (color) */
+   label = gtk_label_new(_("Ambient:"));
+   gtk_table_attach_defaults(GTK_TABLE(table), label, 0,1, 0,1);
+-  button = gtk_color_button_new("Ambient", 30, 20, NULL);
++  button = gtk_color_button_new();
++  gtk_color_button_set_title(button, "Ambient");
+   gtk_table_attach_defaults(GTK_TABLE(table), button, 1,2, 0,1);
+   g_object_set_data(G_OBJECT(Dialog), "Ambient", button);
+   g_signal_connect(G_OBJECT(button), "color_changed",
+@@ -417,7 +447,8 @@
+   /* Reflection (color) */
+   label = gtk_label_new(_("Reflection:"));
+   gtk_table_attach_defaults(GTK_TABLE(table), label, 0,1, 2,3);
+-  button = gtk_color_button_new("Reflection", 30, 20, NULL);
++  button = gtk_color_button_new();
++  gtk_color_button_set_title(button, "Reflection");
+   gtk_table_attach_defaults(GTK_TABLE(table), button, 1,2, 2,3);
+   g_object_set_data(G_OBJECT(Dialog), "Reflection", button);
+   g_signal_connect(G_OBJECT(button), "color_changed",
+--- giram-0.3.5/src/giram.c.orig	2002-12-28 21:49:03.000000000 +0100
++++ giram-0.3.5/src/giram.c	2004-03-29 01:11:24.702706400 +0200
+@@ -17,6 +17,8 @@
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  */
+ 
++#undef GTK_DISABLE_DEPRECATED
++
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+--- giram-0.3.5/src/view.c.orig	2002-08-09 21:25:18.000000000 +0200
++++ giram-0.3.5/src/view.c	2004-03-29 01:45:34.407103968 +0200
+@@ -17,6 +17,8 @@
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  */
+ 
++#undef GTK_DISABLE_DEPRECATED
++
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <unistd.h>
+--- giram-0.3.5/src/camera.c.orig	2002-08-09 13:19:56.000000000 +0200
++++ giram-0.3.5/src/camera.c	2004-03-29 01:47:15.556726888 +0200
+@@ -17,6 +17,8 @@
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  */
+ 
++#undef GTK_DISABLE_DEPRECATED
++
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <math.h>
