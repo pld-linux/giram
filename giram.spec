@@ -1,7 +1,7 @@
 Summary:	Giram Is Really A Modeller
 Summary:	Giram - modeler 3D
 Name:		Giram
-Version:	0.0.16
+Version:	0.1.4
 Release:	1
 Copyright:	GPL
 Group:		X11/Applications/Graphics
@@ -14,7 +14,7 @@ BuildRequires:	Mesa-devel
 BuildRequires:	gettext-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
-%define _prefix /usr/X11R6
+%define		_prefix		/usr/X11R6
 
 %description
 Giram is going to be a modeller, mostly designed for the Persistence Of
@@ -26,26 +26,21 @@ grow rather quickly.
 
 %build
 gettextize --copy --force
-mkdir aclocal
-cp /usr/share/aclocal/{gettext,lcmessage,progtest}.m4 aclocal
+aclocal
 autoconf
-CFLAGS="$RPM_OPT_FLAGS \
-	-DHELPFILE=%{_defaultdocdir}/Giram-%{version}/Tutorial \
-	-DPLUGINS_DIR=%{_datadir}/Giram/" \
-	LDFLAGS="-s" \
-CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates" \
-./configure \
-	--prefix=%{_prefix} \
+LDFLAGS="-s"
+CXXFLAGS="$RPM_OPT_FLAGS -fno-rtti -fno-exceptions -fno-implicit-templates"
+CXXFLAGS="$RPM_OPT_FLAGS"
+export LDFLAGS CXXFLAGS
+%configure \
 	--without-included-gettext
-make	plugindir=%{_libdir}/Giram
+
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	docsdir=%{_defaultdocdir}/Giram-%{version} \
-	plugindir=%{_libdir}/Giram
+make install DESTDIR=$RPM_BUILD_ROOT
 
 gzip -9nf AUTHORS ChangeLog NEWS README TODO
 
@@ -59,5 +54,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/Tutorial  {AUTHORS,ChangeLog,NEWS,README,TODO}.gz
 
 %attr(755,root,root) %{_bindir}/*
-%dir %{_libdir}/Giram
-%attr(755,root,root) %{_libdir}/Giram/*
+%dir %{_libexecdir}/giram
+%dir %{_libexecdir}/giram/plug-ins
+%attr(755,root,root) %{_libexecdir}/giram/plug-ins/*
