@@ -49,7 +49,7 @@ szybko siê rozwinie.
 mv -f po/{no,nb}.po
 
 %build
-glib-gettextize --copy --force
+%{__glib_gettextize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
