@@ -1,5 +1,5 @@
 Summary:	Giram Is Really A Modeller
-Summary(pl):	Giram - modeler 3D
+Summary(pl.UTF-8):   Giram - modeler 3D
 Name:		giram
 Version:	0.3.5
 Release:	3
@@ -34,10 +34,10 @@ Giram is going to be a modeller, mostly designed for the Persistence
 Of Vision Ray-Tracer. For now, it isn't really powerful. But I hope it
 will grow rather quickly.
 
-%description -l pl
-Giram bêdzie narzêdziem do modelowania zbudowanym g³ównie do pracy z
-POV-Rayem. Na razie nie jest naprawdê potê¿ny, ale ma nadziejê, ¿e
-szybko siê rozwinie.
+%description -l pl.UTF-8
+Giram bÄ™dzie narzÄ™dziem do modelowania zbudowanym gÅ‚Ã³wnie do pracy z
+POV-Rayem. Na razie nie jest naprawdÄ™ potÄ™Å¼ny, ale ma nadziejÄ™, Å¼e
+szybko siÄ™ rozwinie.
 
 %prep
 %setup -q
