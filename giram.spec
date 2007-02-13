@@ -1,5 +1,5 @@
 Summary:	Giram Is Really A Modeller
-Summary(pl.UTF-8):   Giram - modeler 3D
+Summary(pl.UTF-8):	Giram - modeler 3D
 Name:		giram
 Version:	0.3.5
 Release:	3
